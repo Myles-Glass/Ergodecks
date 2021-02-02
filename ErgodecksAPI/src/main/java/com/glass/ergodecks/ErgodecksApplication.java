@@ -8,8 +8,8 @@ import org.springframework.context.annotation.Bean;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.type.TypeFactory;
-import com.glass.ergodecks.model.Card;
-import com.glass.ergodecks.service.CardService;
+import com.glass.ergodecks.model.SearchedCard;
+import com.glass.ergodecks.service.SearchedCardService;
 
 import java.nio.file.Paths;
 import java.util.Date;
@@ -27,7 +27,7 @@ public class ErgodecksApplication{
 
 
 	@Bean
-	CommandLineRunner runner(CardService cardService){
+	CommandLineRunner runner(SearchedCardService cardService){
 	    return args -> {
 
 	    	ObjectMapper objectMapper = new ObjectMapper();

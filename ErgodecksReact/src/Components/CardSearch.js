@@ -1,19 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "./Card";
 import TextField from "@material-ui/core/TextField";
-import {Draggable} from 'react-draggable';
 
 const useStyles = makeStyles(theme => ({
   searcharea: {
-    
     flexGrow: '1',
     flexDirection: "row",
-    backgroundColor: "#252525",
-    //border : 'solid 1px blue',
-    height: 'fit-content',
-    padding : '10px'
-
+    backgroundColor: "#686256",
+    height: '244px',
   },
   cardstyle: {
     display: 'flex',
@@ -22,19 +17,19 @@ const useStyles = makeStyles(theme => ({
   }
 }));
 
-
-
-
-
-
-export default function CardSearch() {
+export default function CardSearch(props) {
     const classes = useStyles();
-    const [cardResults, selectCard] = React.useState([]);
+    const [cardResults, selectCard] = useState([]);
+
+    const {cardDrop: [cardDrop, setCardDrop]} = {
+      cardDrop: useState(0),
+      ...(props.state || {})
+    };
 
     async function fetchCard() {
       var cardInput = document.getElementById("searchInput").value;
 
-      if (cardInput.length > 1) {
+      if (cardInput.length > 2) {
         let response = await fetch("/card/search/" + cardInput);
         let body = await response.json();
         selectCard(body);
@@ -46,7 +41,7 @@ export default function CardSearch() {
     }
 
     return (
-      <div className={classes.searcharea}>
+      <div className={classes.searcharea} >
           <TextField 
             id="searchInput" 
             onChange = {fetchCard}
@@ -54,15 +49,10 @@ export default function CardSearch() {
             ></TextField>
 
             <div className={classes.cardstyle}>
-
-            {cardResults.map((card) => (
-              
-                <Card {...card} />
-                
-            ))}
-
+              {cardResults.slice(0, 8).map((card) => ( 
+                  <Card state={{ cardDrop: [cardDrop, setCardDrop] }} {...card} />        
+              ))}
             </div>
-
         </div>
     );
 }

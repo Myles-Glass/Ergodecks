@@ -8,15 +8,14 @@ const useStyles = makeStyles(theme => ({
             minWidth: '50px',
             
             minHeight: '100vh',
-            backgroundColor: '#202020'
+            backgroundColor: '#587e76'
     }
   }));
-
-
-export default function WorkBookBar() {
+//TODO: generate buttons from array and api request, if button is active, display workbook
+export default function WorkbookBar() {
     const classes = useStyles();
-
     return (
-        <div className={classes.background}></div>
+        <div className={classes.background}>
+        </div>
     )
 }
